@@ -1,7 +1,7 @@
 from sqlmodel import Session
 
 from .dtos import UserCreateDTO, UserPublicDTO
-from .models import AppUser
+from .models import User
 
 
 class UserService:
@@ -9,7 +9,7 @@ class UserService:
         self.conn = conn
 
     def create_user(self, data: UserCreateDTO) -> UserPublicDTO:
-        user = AppUser(username=data.username, email=data.email)
+        user = User(username=data.username, email=data.email)
         user.set_password(raw_password=data.password)
 
         self.conn.add(user)
