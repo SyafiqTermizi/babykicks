@@ -14,7 +14,10 @@ if config.config_file_name is not None:
 
 
 from backend.core.settings import settings  # noqa
-from backend.users.models import SQLModel  # noqa
+from sqlmodel import SQLModel  # noqa
+from backend.users.models import User  # noqa
+from backend.kicks.models import Kick  # noqa
+
 
 # add your model's MetaData object here
 # for 'autogenerate' support
