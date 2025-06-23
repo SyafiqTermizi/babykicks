@@ -4,7 +4,10 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     DEBUG: bool
+    SECRET_KEY: str
     PROJECT_NAME: str
+    ACCESS_TOKEN_EXPIRE_SECONDS: int
+    ACCESS_TOKEN_ALGORITHM: str
 
     POSTGRES_DB: str
     POSTGRES_USER: str
