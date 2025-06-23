@@ -10,12 +10,13 @@ import socket
 import time
 import os
 
-port = int(os.environ["POSTGRES_PORT"])
+db_port = int(os.environ["POSTGRES_PORT"])
+db_host = os.environ["POSTGRES_HOST"]
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 while True:
     try:
-        s.connect(("${POSTGRES_HOST}", port))
+        s.connect((db_host, db_port))
         s.close()
         break
     except socket.error as ex:
@@ -29,5 +30,7 @@ until postgres_ready; do
 done
 
 >&2 echo "PostgreSQL is available"
+
+alembic upgrade head
 
 exec "$@"
