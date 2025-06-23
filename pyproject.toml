@@ -1,0 +1,21 @@
+[project]
+name = "babykicks"
+version = "0.1.0"
+description = "Baby kick counter"
+authors = [
+    {name = "Syafiq Termizi",email = "ahmadsyafiq93@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard] (>=0.115.13,<0.116.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.development.dependencies]
+ruff = "^0.12.0"

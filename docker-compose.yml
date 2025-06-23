@@ -1,0 +1,18 @@
+services:
+  database:
+    container_name: database
+    image: postgres:17.5-alpine3.22
+    env_file:
+      - ./backend/.env
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    command: uvicorn --host 0.0.0.0 main:app
+    volumes:
+      - ./backend/:/app
+    env_file:
+      - ./backend/.env
+    ports:
+      - 8000:8000
