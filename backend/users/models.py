@@ -8,8 +8,8 @@ from sqlmodel import Field, SQLModel
 
 class AppUser(SQLModel, table=True):
     id: int | None = Field(primary_key=True)
-    username: str = Field(min_length=5, max_length=255, unique=True)
-    email: EmailStr = Field(unique=True, index=True, max_length=255)
+    username: str = Field(unique=True, min_length=5, max_length=255)
+    email: EmailStr = Field(unique=True, min_length=5, index=True, max_length=255)
     password: str = Field(min_length=5, max_length=255)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
