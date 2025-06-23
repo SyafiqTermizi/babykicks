@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from .core.settings import settings
+from .users.routes import router as user_router
+
+app = FastAPI(title=settings.PROJECT_NAME)
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+app.include_router(user_router)

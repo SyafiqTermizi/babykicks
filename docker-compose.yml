@@ -9,9 +9,9 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    command: uvicorn --host 0.0.0.0 main:app
+    command: uvicorn --host 0.0.0.0 backend.main:app
     volumes:
-      - ./backend/:/app
+      - ./:/app
     env_file:
       - ./backend/.env
     ports:
