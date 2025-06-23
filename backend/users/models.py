@@ -1,13 +1,9 @@
-import json
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
-import jwt
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from pydantic import EmailStr
 from sqlmodel import Field, SQLModel
-
-from ..core.settings import settings
 
 
 class User(SQLModel, table=True):
@@ -35,16 +31,3 @@ class User(SQLModel, table=True):
             is_valid = False
 
         return is_valid
-
-    def create_jwt_token(self):
-        expire = datetime.now(timezone.utc) + timedelta(
-            seconds=settings.ACCESS_TOKEN_EXPIRE_SECONDS
-        )
-        subject = json.dumps({"username": self.username, "email": self.email})
-        to_encode = {"exp": expire, "sub": str(subject)}
-        encoded_jwt = jwt.encode(
-            to_encode,
-            settings.SECRET_KEY,
-            algorithm=settings.ACCESS_TOKEN_ALGORITHM,
-        )
-        return encoded_jwt

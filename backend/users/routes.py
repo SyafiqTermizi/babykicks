@@ -2,8 +2,9 @@ from fastapi import APIRouter, HTTPException
 from sqlalchemy.exc import IntegrityError
 
 from ..core.database import DBConn
+from .auth import CurrentUser
 from .dtos import UserCreateDTO, UserPublicDTO, UserSignInDTO, UserTokenDTO
-from .services import UserService
+from .services import TokenService, UserService
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -22,10 +23,16 @@ def signup(data: UserCreateDTO, db_conn: DBConn) -> UserPublicDTO:
 
 @router.post("/signin")
 def signin(data: UserSignInDTO, db_conn: DBConn) -> UserTokenDTO:
-    service = UserService(conn=db_conn)
-    user = service.authenticate(data)
+    user_service = UserService(conn=db_conn)
+    user = user_service.authenticate(data)
 
     if not user:
         raise HTTPException(status_code=400, detail="invalid email/password")
 
-    return UserTokenDTO(access_token=user.create_jwt_token())
+    token_service = TokenService()
+    return UserTokenDTO(access_token=token_service.encode_jwt_token(user=user))
+
+
+@router.post("/test-token")
+def test_token(user: CurrentUser):
+    return UserPublicDTO(username=user.username, email=user.email)
