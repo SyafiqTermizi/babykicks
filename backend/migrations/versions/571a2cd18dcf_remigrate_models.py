@@ -1,8 +1,8 @@
 """remigrate models
 
-Revision ID: 692ce925a3a2
+Revision ID: 571a2cd18dcf
 Revises: 
-Create Date: 2025-06-24 03:48:59.501478
+Create Date: 2025-06-24 05:18:37.452538
 
 """
 from typing import Sequence, Union
@@ -14,7 +14,7 @@ import sqlmodel.sql.sqltypes
 
 
 # revision identifiers, used by Alembic.
-revision: str = '692ce925a3a2'
+revision: str = '571a2cd18dcf'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -34,7 +34,7 @@ def upgrade() -> None:
     )
     op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=True)
     op.create_table('kick',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Uuid(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),

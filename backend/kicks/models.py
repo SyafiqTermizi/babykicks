@@ -1,10 +1,11 @@
+import uuid
 from datetime import datetime, timezone
 
 from sqlmodel import Field, SQLModel
 
 
 class Kick(SQLModel, table=True):
-    id: int | None = Field(primary_key=True)
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     user_id: int = Field(
         foreign_key="user.id",
         nullable=False,
