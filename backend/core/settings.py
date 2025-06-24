@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str
     ACCESS_TOKEN_EXPIRE_SECONDS: int
     ACCESS_TOKEN_ALGORITHM: str
+    TIME_ZONE_NAME: str
 
     POSTGRES_DB: str
     POSTGRES_USER: str

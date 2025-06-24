@@ -5,7 +5,7 @@ from backend.users.auth import CurrentUser
 
 from .dtos import KickDTO
 from .services import KickService
-from .utils import to_formatted_kl_tz
+from .utils import to_formatted_tz
 
 router = APIRouter(prefix="/kicks", tags=["kicks"])
 
@@ -16,7 +16,7 @@ def create_kick(user: CurrentUser, db_conn: DBConn) -> KickDTO:
     kick = service.create_kick(user_id=user.id)
     return KickDTO(
         id=kick.id,
-        created_at=to_formatted_kl_tz(kick.created_at),
+        created_at=to_formatted_tz(kick.created_at),
     )
 
 
@@ -28,7 +28,7 @@ def list_today_kicks(user: CurrentUser, db_conn: DBConn):
         map(
             lambda kick: KickDTO(
                 id=kick.id,
-                created_at=to_formatted_kl_tz(kick.created_at),
+                created_at=to_formatted_tz(kick.created_at),
             ),
             kicks,
         )
