@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from fastapi import APIRouter
 
 from backend.core.database import DBConn
@@ -21,7 +23,7 @@ def create_kick(user: CurrentUser, db_conn: DBConn) -> KickDTO:
 
 
 @router.get("")
-def list_today_kicks(user: CurrentUser, db_conn: DBConn):
+def list_today_kicks(user: CurrentUser, db_conn: DBConn) -> list[KickDTO]:
     service = KickService(conn=db_conn)
     kicks = service.list_todays_kicks(user_id=user.id)
     res = list(
@@ -34,3 +36,11 @@ def list_today_kicks(user: CurrentUser, db_conn: DBConn):
         )
     )
     return res
+
+
+@router.delete("/{kick_id}")
+def delete_kicks(kick_id: UUID, user: CurrentUser, db_conn: DBConn):
+    service = KickService(conn=db_conn)
+    service.delete_kick(user_id=user.id, kick_id=kick_id)
+
+    return {"msg": "success"}

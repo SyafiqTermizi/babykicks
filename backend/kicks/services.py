@@ -1,7 +1,8 @@
 from datetime import datetime
+from uuid import UUID
 
 from pytz import timezone
-from sqlmodel import Session, desc, func, select
+from sqlmodel import Session, delete, desc, func, select
 
 from backend.core.settings import settings
 
@@ -37,3 +38,11 @@ class KickService:
             .order_by(desc(Kick.created_at))
         )
         return self.conn.exec(statement).all()
+
+    def delete_kick(self, user_id: int, kick_id: UUID):
+        statement = delete(Kick).where(
+            Kick.user_id == user_id,
+            Kick.id == kick_id,
+        )
+        self.conn.exec(statement)
+        self.conn.commit()
