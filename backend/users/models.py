@@ -3,16 +3,20 @@ from datetime import datetime, timezone
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from pydantic import EmailStr
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, SQLModel
 
 
 class User(SQLModel, table=True):
     id: int | None = Field(primary_key=True)
     username: str = Field(unique=True, min_length=5, max_length=255)
-    email: EmailStr = Field(unique=True, min_length=5, index=True, max_length=255)
+    email: EmailStr = Field(
+        unique=True,
+        min_length=5,
+        max_length=255,
+        index=True,
+    )
     password: str = Field(min_length=5, max_length=255)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    kicks: list = Relationship(back_populates="user", cascade_delete=True)
 
     def set_password(self, raw_password: str):
         ph = PasswordHasher()
