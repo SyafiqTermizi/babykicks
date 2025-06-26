@@ -24,8 +24,8 @@ export function Login({ setAuthToken }: Param) {
             .catch(err => setError(err.message));
     }
 
-    return <div className="row justify-content-center mt-5">
-        <div className="col-4 mt-5">
+    return <div className="row justify-content-center mt-5 p-1">
+        <div className="col-md-4 col-sm-10 mt-5">
             <div className="card">
                 <div className="card-body">
                     <form onSubmit={e => handleSubmit(e)}>

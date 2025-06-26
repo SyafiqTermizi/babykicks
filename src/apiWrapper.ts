@@ -1,23 +1,19 @@
+import { AUTH_TOKEN_KEY_NAME } from "./constants";
+
 interface SigninParam {
     email: string;
     password: string;
 };
 
+
 export class Api {
     baseUrl = "http://localhost:8000";
     baseHeader = { "Content-Type": "application/json" }
 
-    async login({ email, password }: SigninParam): Promise<string> {
-        const signinUrl = `${this.baseUrl}/users/signin`;
-        const options = {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-            headers: this.baseHeader
-        };
-
+    async callApi(url: string, options) {
         let response;
         try {
-            response = await fetch(signinUrl, options);
+            response = await fetch(url, options);
         } catch {
             throw Error("We can't connect to the remote server. Please try again later.");
         };
@@ -33,6 +29,72 @@ export class Api {
             throw Error("Fail decoding response data");
         };
 
+        return responseData;
+    }
+
+    async login({ email, password }: SigninParam): Promise<string> {
+        const signinUrl = `${this.baseUrl}/users/signin`;
+        const options = {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+            headers: this.baseHeader
+        };
+
+        const responseData = await this.callApi(signinUrl, options);
         return responseData["access_token"];
+    };
+
+    async createKick() {
+        const authToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+        if (!authToken) return;
+
+        const createkickUrl = `${this.baseUrl}/kicks`;
+        const headers = {
+            ...this.baseHeader,
+            'Authorization': `bearer ${authToken}`
+        };
+
+        const options = {
+            method: "POST",
+            headers: headers
+        };
+
+        return this.callApi(createkickUrl, options);
+    };
+
+    async getTodayKicks() {
+        const authToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+        if (!authToken) return;
+
+        const getTodayKicksUrl = `${this.baseUrl}/kicks`;
+        const headers = {
+            ...this.baseHeader,
+            'Authorization': `bearer ${authToken}`
+        };
+
+        const options = {
+            method: "GET",
+            headers: headers
+        };
+
+        return this.callApi(getTodayKicksUrl, options);
+    };
+
+    async deleteKick(kickId: string) {
+        const authToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+        if (!authToken) return;
+
+        const deleteKicksUrl = `${this.baseUrl}/kicks/${kickId}`;
+        const headers = {
+            ...this.baseHeader,
+            'Authorization': `bearer ${authToken}`
+        };
+
+        const options = {
+            method: "DELETE",
+            headers: headers
+        };
+
+        return this.callApi(deleteKicksUrl, options);
     }
 }
