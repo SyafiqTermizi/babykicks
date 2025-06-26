@@ -3,7 +3,8 @@ from typing import Annotated
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
-from ..core.database import DBConn
+from backend.core.database import DBConn
+
 from .models import User
 from .services import TokenService, UserService
 

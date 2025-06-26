@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from sqlalchemy.exc import IntegrityError
 
-from ..core.database import DBConn
+from backend.core.database import DBConn
+
 from .auth import CurrentUser
 from .dtos import UserCreateDTO, UserPublicDTO, UserSignInDTO, UserTokenDTO
 from .services import TokenService, UserService

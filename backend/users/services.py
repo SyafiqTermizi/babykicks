@@ -6,7 +6,8 @@ from jwt.exceptions import InvalidTokenError
 from pydantic import EmailStr
 from sqlmodel import Session, select
 
-from ..core.settings import settings
+from backend.core.settings import settings
+
 from .dtos import UserCreateDTO, UserSignInDTO
 from .models import User
 
