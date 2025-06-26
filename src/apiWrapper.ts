@@ -5,6 +5,10 @@ interface SigninParam {
     password: string;
 };
 
+interface SignupParam extends SigninParam {
+    username: string;
+}
+
 interface SigninResponse {
     access_token: string;
     username: string;
@@ -36,7 +40,7 @@ export class Api {
         return responseData;
     }
 
-    async login({ email, password }: SigninParam): Promise<SigninResponse> {
+    async signin({ email, password }: SigninParam): Promise<SigninResponse> {
         const signinUrl = `${this.baseUrl}/users/signin`;
         const options = {
             method: "POST",
@@ -47,6 +51,18 @@ export class Api {
         const responseData = await this.callApi(signinUrl, options);
         return responseData;
     };
+
+    async signup({ email, username, password }: SignupParam): Promise<SignupParam> {
+        const signupUrl = `${this.baseUrl}/users/signup`;
+        const options = {
+            method: "POST",
+            body: JSON.stringify({ email, username, password }),
+            headers: this.baseHeader
+        };
+
+        const responseData = await this.callApi(signupUrl, options);
+        return responseData;
+    }
 
     async createKick() {
         const authToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);

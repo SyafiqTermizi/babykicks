@@ -7,7 +7,7 @@ interface Param {
     setAuthToken: (token: string) => undefined;
 }
 
-export function Login({ setAuthToken }: Param) {
+export function Signin({ setAuthToken }: Param) {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -16,7 +16,7 @@ export function Login({ setAuthToken }: Param) {
         e.preventDefault();
 
         const api = new Api();
-        api.login({ email, password })
+        api.signin({ email, password })
             .then(data => {
                 const token = data["access_token"];
                 localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
