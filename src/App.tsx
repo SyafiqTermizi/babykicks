@@ -1,10 +1,11 @@
+import { Kick } from "./Kick";
+import { Login } from "./Login";
+
 function App() {
 
-  return (
-    <>
-      <h1>Hello World</h1>
-    </>
-  )
-}
+    return (
+        <Login />
+    )
+};
 
-export default App
+export default App;
