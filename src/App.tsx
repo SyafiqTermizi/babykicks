@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { Kick } from "./Kick";
-import { Login } from "./Login";
+import { Kick } from "./pages/Kick";
+import { Login } from "./pages/Login";
 import { AUTH_TOKEN_KEY_NAME } from "./constants";
 
 function App() {

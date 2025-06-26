@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { Api } from "./apiWrapper";
+import { Api } from "../apiWrapper";
+
+import { Error } from "./Error";
 
 interface Kick {
     id: string;
@@ -13,6 +15,7 @@ export function Kick() {
     const [shouldFetch, setShouldFetch] = useState<boolean>(true);
     const [kicks, setKicks] = useState<Kick[]>([]);
     const [kickPercent, setKickPercent] = useState<string>("0%");
+    const [error, setError] = useState<boolean>(false);
 
     function getKickPercent(kicksParam: Kick[]): string {
         const kickCount = kicksParam.length < 10 ? kicksParam.length : 10;
@@ -27,7 +30,7 @@ export function Kick() {
                 setKicks(kicks);
                 setKickPercent(getKickPercent(kicks))
             }
-        );
+        ).catch(_ => setError(true))
 
         setShouldFetch(false);
     }, [shouldFetch]);
@@ -39,6 +42,8 @@ export function Kick() {
     function deleteKick(kickId: string) {
         api.deleteKick(kickId).then(_ => setShouldFetch(true));
     }
+
+    if (error) return <Error />;
 
     return <>
         <div className="row justify-content-center text-center mt-5 p-1">

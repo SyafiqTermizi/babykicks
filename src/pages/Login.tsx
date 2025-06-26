@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { Api } from "./apiWrapper";
-import { AUTH_TOKEN_KEY_NAME } from "./constants";
+import { Api } from "../apiWrapper";
+import { AUTH_TOKEN_KEY_NAME } from "../constants";
 
 interface Param {
     setAuthToken: (token: string) => undefined;
