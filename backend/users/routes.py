@@ -31,7 +31,10 @@ def signin(data: UserSignInDTO, db_conn: DBConn) -> UserTokenDTO:
         raise HTTPException(status_code=400, detail="invalid email/password")
 
     token_service = TokenService()
-    return UserTokenDTO(access_token=token_service.encode_jwt_token(user=user))
+    return UserTokenDTO(
+        username=user.username.title(),
+        access_token=token_service.encode_jwt_token(user=user),
+    )
 
 
 @router.post("/test-token")

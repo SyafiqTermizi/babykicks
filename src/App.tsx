@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
 import { Kick } from "./pages/Kick";
-import { Login } from "./pages/Login";
+import { Login } from "./pages/Signin";
+import { Navbar } from "./Navbar";
+
 import { AUTH_TOKEN_KEY_NAME } from "./constants";
 
 function App() {
@@ -14,7 +16,10 @@ function App() {
 
 
     return <>
-        {authToken ? <Kick /> : <Login setAuthToken={setAuthToken} />}
+        {authToken ? <Navbar /> : null}
+        <div className="container">
+            {authToken ? <Kick /> : <Login setAuthToken={setAuthToken} />}
+        </div>
     </>
 };
 

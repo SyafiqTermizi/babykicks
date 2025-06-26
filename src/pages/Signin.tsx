@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Api } from "../apiWrapper";
-import { AUTH_TOKEN_KEY_NAME } from "../constants";
+import { AUTH_TOKEN_KEY_NAME, USERNAME_KEY_NAME } from "../constants";
 
 interface Param {
     setAuthToken: (token: string) => undefined;
@@ -17,8 +17,10 @@ export function Login({ setAuthToken }: Param) {
 
         const api = new Api();
         api.login({ email, password })
-            .then(token => {
+            .then(data => {
+                const token = data["access_token"];
                 localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
+                localStorage.setItem(USERNAME_KEY_NAME, data["username"]);
                 setAuthToken(token);
             })
             .catch(err => setError(err.message));

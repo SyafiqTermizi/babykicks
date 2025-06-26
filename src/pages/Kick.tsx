@@ -46,7 +46,7 @@ export function Kick() {
     if (error) return <Error />;
 
     return <>
-        <div className="row justify-content-center text-center mt-5 p-1">
+        <div className="row justify-content-center text-center mt-5">
             <div className="col-md-4 col-sm-10 mt-5">
                 <div className="d-grid gap-2">
                     <button

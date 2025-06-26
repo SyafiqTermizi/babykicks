@@ -15,6 +15,7 @@ class UserSignInDTO(BaseModel):
 class UserTokenDTO(BaseModel):
     access_token: str
     token_type: str = "bearer"
+    username: str
 
 
 class UserPublicDTO(BaseModel):

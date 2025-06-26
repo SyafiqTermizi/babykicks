@@ -5,6 +5,10 @@ interface SigninParam {
     password: string;
 };
 
+interface SigninResponse {
+    access_token: string;
+    username: string;
+}
 
 export class Api {
     baseUrl = "http://localhost:8000";
@@ -32,7 +36,7 @@ export class Api {
         return responseData;
     }
 
-    async login({ email, password }: SigninParam): Promise<string> {
+    async login({ email, password }: SigninParam): Promise<SigninResponse> {
         const signinUrl = `${this.baseUrl}/users/signin`;
         const options = {
             method: "POST",
@@ -41,7 +45,7 @@ export class Api {
         };
 
         const responseData = await this.callApi(signinUrl, options);
-        return responseData["access_token"];
+        return responseData;
     };
 
     async createKick() {
