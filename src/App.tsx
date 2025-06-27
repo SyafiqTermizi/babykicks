@@ -1,16 +1,43 @@
-import { useStore } from "./store";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
+import { Home } from "./pages/Home";
 import { Kick } from "./pages/Kick";
 import { Signin } from "./pages/Signin";
-import { Navbar } from "./Navbar";
+import { Signup } from "./pages/Signup";
+import { AuthenticatedLayout } from "./layouts/AuthenticatedLayout";
+import { UnauthenticatedLayout } from "./layouts/UnauthenticatedLayout";
 
 function App() {
-    const { authToken } = useStore();
+    const router = createBrowserRouter([
+        {
+            path: "", Component: Home,
+        },
+        {
+            path: "kicks",
+            Component: AuthenticatedLayout,
+            children: [
+                { index: true, Component: Kick },
+            ],
+        },
+        {
+            path: "auth",
+            Component: UnauthenticatedLayout,
+            children: [
+                {
+                    path: "signin",
+                    Component: Signin
+                },
+                {
+                    path: "signup",
+                    Component: Signup
+                }
+            ]
+        }
+    ]);
 
     return <>
-        {authToken ? <Navbar /> : null}
         <div className="container">
-            {authToken ? <Kick /> : <Signin />}
+            <RouterProvider router={router} />
         </div>
     </>
 };

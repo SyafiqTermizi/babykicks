@@ -1,6 +1,7 @@
-import { useStore } from "../store";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
+import { useStore } from "../store";
 import { Api } from "../apiWrapper";
 
 import { Error } from "./Error";
@@ -12,8 +13,13 @@ interface Kick {
 
 export function Kick() {
     const { authToken } = useStore();
-    const api = new Api(authToken);
 
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!authToken) navigate("/");
+    });
+
+    const api = new Api(authToken);
     const [shouldFetch, setShouldFetch] = useState<boolean>(true);
     const [kicks, setKicks] = useState<Kick[]>([]);
     const [kickPercent, setKickPercent] = useState<string>("0%");

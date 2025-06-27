@@ -1,11 +1,14 @@
-import { useStore } from "./store";
+import { useNavigate } from "react-router";
+
+import { useStore } from "../store";
 
 export function Navbar() {
     const { username, clear } = useStore();
+    const navigate = useNavigate();
 
     function logout() {
         clear();
-        window.location.reload();
+        navigate("/");
     }
 
     return <div className="container mt-3">

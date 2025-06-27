@@ -4,8 +4,8 @@ import { useNavigate } from "react-router";
 import { Api } from "../apiWrapper";
 import { useStore } from "../store";
 
-export function Signin() {
-    const { setAuthToken, setUsername, authToken } = useStore();
+export function Signup() {
+    const { authToken } = useStore();
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -13,19 +13,22 @@ export function Signin() {
     });
 
     const [email, setEmail] = useState<string>("");
+    const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
+        if (password !== confirmPassword) {
+            setError("Password mismatch.");
+            return;
+        }
+
         const api = new Api("");
-        api.signin({ email, password })
-            .then(data => {
-                setAuthToken(data["access_token"]);
-                setUsername(data["username"]);
-                navigate("/kicks");
-            })
+        api.signup({ email, username, password })
+            .then(_ => navigate("/"))
             .catch(err => setError(err.message));
     }
 
@@ -45,6 +48,17 @@ export function Signin() {
                         />
                     </div>
                     <div className="mb-2">
+                        <label htmlFor="username" className="form-label">Username</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="username"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-2">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
                             type="password"
@@ -52,6 +66,17 @@ export function Signin() {
                             id="password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <label htmlFor="confirmpassword" className="form-label">Confirm Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="confirmpassword"
+                            value={confirmPassword}
+                            onChange={e => setConfirmPassword(e.target.value)}
                             required
                         />
                     </div>

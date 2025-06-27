@@ -10,8 +10,6 @@ interface State {
     clear: () => void;
 }
 
-console.log("store init");
-
 export const useStore = create<State>((set) => ({
     authToken: localStorage.getItem(AUTH_TOKEN_KEY_NAME) || "",
     username: localStorage.getItem(USERNAME_KEY_NAME) || "",
@@ -28,5 +26,3 @@ export const useStore = create<State>((set) => ({
         localStorage.clear();
     },
 }));
-
-console.log("store init completed");
