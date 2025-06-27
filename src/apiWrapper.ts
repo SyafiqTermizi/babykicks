@@ -21,7 +21,7 @@ export class Api {
         this.authToken = authToken;
     }
 
-    async callApi(url: string, options) {
+    async callApi(url: string, options: any) {
         let response;
         try {
             response = await fetch(url, options);
