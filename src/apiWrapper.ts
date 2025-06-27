@@ -1,5 +1,3 @@
-import { AUTH_TOKEN_KEY_NAME } from "./constants";
-
 interface SigninParam {
     email: string;
     password: string;
@@ -17,6 +15,11 @@ interface SigninResponse {
 export class Api {
     baseUrl = "http://localhost:8000";
     baseHeader = { "Content-Type": "application/json" }
+    authToken = "";
+
+    constructor(authToken: string) {
+        this.authToken = authToken;
+    }
 
     async callApi(url: string, options) {
         let response;
@@ -65,7 +68,7 @@ export class Api {
     }
 
     async createKick() {
-        const authToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+        const authToken = this.authToken;
         if (!authToken) return;
 
         const createkickUrl = `${this.baseUrl}/kicks`;
@@ -83,7 +86,7 @@ export class Api {
     };
 
     async getTodayKicks() {
-        const authToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+        const authToken = this.authToken;
         if (!authToken) return;
 
         const getTodayKicksUrl = `${this.baseUrl}/kicks`;
@@ -101,7 +104,7 @@ export class Api {
     };
 
     async deleteKick(kickId: string) {
-        const authToken = localStorage.getItem(AUTH_TOKEN_KEY_NAME);
+        const authToken = this.authToken;
         if (!authToken) return;
 
         const deleteKicksUrl = `${this.baseUrl}/kicks/${kickId}`;

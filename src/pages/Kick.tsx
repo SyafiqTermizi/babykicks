@@ -1,3 +1,4 @@
+import { useStore } from "../store";
 import { useState, useEffect } from "react";
 
 import { Api } from "../apiWrapper";
@@ -10,7 +11,8 @@ interface Kick {
 }
 
 export function Kick() {
-    const api = new Api();
+    const { authToken } = useStore();
+    const api = new Api(authToken);
 
     const [shouldFetch, setShouldFetch] = useState<boolean>(true);
     const [kicks, setKicks] = useState<Kick[]>([]);

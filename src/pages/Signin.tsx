@@ -1,13 +1,11 @@
 import { useState } from "react";
 
 import { Api } from "../apiWrapper";
-import { AUTH_TOKEN_KEY_NAME, USERNAME_KEY_NAME } from "../constants";
+import { useStore } from "../store";
 
-interface Param {
-    setAuthToken: (token: string) => undefined;
-}
+export function Signin() {
+    const { setAuthToken, setUsername } = useStore();
 
-export function Signin({ setAuthToken }: Param) {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -15,13 +13,11 @@ export function Signin({ setAuthToken }: Param) {
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
-        const api = new Api();
+        const api = new Api("");
         api.signin({ email, password })
             .then(data => {
-                const token = data["access_token"];
-                localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
-                localStorage.setItem(USERNAME_KEY_NAME, data["username"]);
-                setAuthToken(token);
+                setAuthToken(data["access_token"]);
+                setUsername(data["username"]);
             })
             .catch(err => setError(err.message));
     }

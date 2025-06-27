@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
-
-import { USERNAME_KEY_NAME } from "./constants";
+import { useStore } from "./store";
 
 export function Navbar() {
-    const [username, setUsername] = useState<string>("");
-
-    useEffect(() => {
-        setUsername(localStorage.getItem(USERNAME_KEY_NAME) || "");
-    });
+    const { username, clear } = useStore();
 
     function logout() {
-        localStorage.clear();
+        clear();
         window.location.reload();
     }
 
