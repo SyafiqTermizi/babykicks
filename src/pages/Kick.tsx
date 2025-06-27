@@ -69,13 +69,16 @@ export function Kick() {
             </div>
         </div>
 
-        <div className="row justify-content-center mt-2">
-            <div className="col-md-4 col-sm-10">
-                <div className="progress" role="progressbar">
-                    <div className="progress-bar" style={{ width: kickPercent }}></div>
+        {
+            Boolean(kicks.length) && <div className="row justify-content-center mt-2">
+                <div className="col-md-4 col-sm-10">
+                    <div className="progress" role="progressbar">
+                        <div className="progress-bar" style={{ width: kickPercent }}></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+
 
         <div className="row justify-content-center mt-2 mb-5">
             <div className="col-md-4 col-sm-10">

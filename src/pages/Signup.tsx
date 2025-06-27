@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 
 import { Api } from "../apiWrapper";
 import { useStore } from "../store";
@@ -80,7 +80,16 @@ export function Signup() {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <div className="row">
+                        <div className="col-12 d-grid gap-2">
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                        </div>
+                        <div className="row mt-1">
+                            <div className="col-12 text-center">
+                                <Link to="/auth/signin">Sign In</Link>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
