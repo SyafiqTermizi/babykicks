@@ -5,7 +5,7 @@ from .core.settings import settings
 from .kicks.routes import router as kick_router
 from .users.routes import router as user_router
 
-app = FastAPI(title=settings.PROJECT_NAME)
+app = FastAPI(title=settings.PROJECT_NAME, debug=settings.DEBUG)
 
 app.add_middleware(
     CORSMiddleware,

@@ -9,10 +9,10 @@ services:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    command: uvicorn --host 0.0.0.0 backend.main:app
+    command: uvicorn --host 0.0.0.0 backend.main:app --port 80 --workers 2
     volumes:
       - ./:/app
     env_file:
       - ./backend/.env
     ports:
-      - 8000:8000
+      - 8000:80
