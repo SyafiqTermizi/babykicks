@@ -42,6 +42,7 @@ export function Signin() {
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                             required
+                            minLength={5}
                         />
                     </div>
                     <div className="mb-2">
@@ -53,6 +54,7 @@ export function Signin() {
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                             required
+                            minLength={5}
                         />
                     </div>
                     <div className="row">

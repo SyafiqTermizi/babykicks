@@ -45,6 +45,7 @@ export function Signup() {
                             value={email}
                             onChange={e => setEmail(e.target.value)}
                             required
+                            minLength={5}
                         />
                     </div>
                     <div className="mb-2">
@@ -56,6 +57,7 @@ export function Signup() {
                             value={username}
                             onChange={e => setUsername(e.target.value)}
                             required
+                            minLength={5}
                         />
                     </div>
                     <div className="mb-2">
@@ -67,6 +69,7 @@ export function Signup() {
                             value={password}
                             onChange={e => setPassword(e.target.value)}
                             required
+                            minLength={5}
                         />
                     </div>
                     <div className="mb-2">
@@ -78,6 +81,7 @@ export function Signup() {
                             value={confirmPassword}
                             onChange={e => setConfirmPassword(e.target.value)}
                             required
+                            minLength={5}
                         />
                     </div>
                     <div className="row">
