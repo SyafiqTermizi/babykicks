@@ -11,3 +11,10 @@ services:
       - ./backend/.env
     ports:
       - 8000:80
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./src/Dockerfile
+    ports:
+      - 3000:80

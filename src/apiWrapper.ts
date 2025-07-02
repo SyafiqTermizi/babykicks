@@ -13,7 +13,7 @@ interface SigninResponse {
 }
 
 export class Api {
-    baseUrl = "http://localhost:8000";
+    baseUrl = "https://babykicks.syafiqtermizi.com/api";
     baseHeader = { "Content-Type": "application/json" }
     authToken = "";
 
